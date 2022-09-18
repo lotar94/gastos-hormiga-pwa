@@ -1,0 +1,67 @@
+<main>
+  <section class="diarySpend">
+    <h1>Hoy</h1>
+    <h1>$ {{diarySpend}}</h1>
+  </section>
+
+  <section class="week">
+    <div class="slider">
+      <div>
+        <span class="date">21-06-2022</span>
+        <span class="day">Lunes</span>
+        <span class="amount">$ 4.890</span>
+      </div>
+      <div>
+        <span class="date">21-06-2022</span>
+        <span class="day">Martes</span>
+        <span class="amount">$ 4.890</span>
+      </div>
+      <div>
+        <span class="date">21-06-2022</span>
+        <span class="day">Muercoles</span>
+        <span class="amount">$ 4.890</span>
+      </div>
+      <div>
+        <span class="date">21-06-2022</span>
+        <span class="day">Jueves</span>
+        <span class="amount">$ 4.890</span>
+      </div>
+      <div>
+        <span class="date">21-06-2022</span>
+        <span class="day">Viernes</span>
+        <span class="amount">$ 4.890</span>
+      </div>
+      <div>
+        <span class="date">21-06-2022</span>
+        <span class="day">Sabado</span>
+        <span class="amount">$ 4.890</span>
+      </div>
+      <div>
+        <span class="date">21-06-2022</span>
+        <span class="day">Domingo</span>
+        <span class="amount">$ 4.890</span>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="btn-section">
+    
+    <img id="myBtn" src="../assets/plus-svgrepo-com.svg" alt="" (click)="showModal()">
+    
+  </section>
+
+
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Some text in the Modal..</p>
+      <input type="text">
+      <input type="number" name="amount" id="amount">
+    </div>
+
+  </div>
+</main>

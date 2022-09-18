@@ -1,0 +1,83 @@
+* {
+  font-family: fantasy;
+}
+.diarySpend {
+  background: #5BB78D;
+  color: white;
+  text-align: center;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+  height: 100px;
+  margin-bottom: 50px;
+}
+
+.slider {
+  /* line them up horizontally */
+  display: flex;
+
+  /* allow for scrolling */
+  overflow-x: auto;
+
+  /* make it smooth on iOS */
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-points-x: repeat(300px);
+  scroll-snap-type: mandatory;
+}
+.slider > div {
+  color: white;
+  /* make sure the width is honored */
+  flex-shrink: 0;
+  width: 200px;
+  height: 200px;
+  /* line-height: 300px; */
+  text-align: center;
+  background: #486573;
+  margin-right: 15px;
+  border-radius: 25px;
+}
+
+.week {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.date, .day, .amount {
+  display: block;
+  margin-top: 20px;
+}
+
+.btn-section {
+  margin-top: 100px;
+  text-align: center;
+  position: absolute;
+  bottom: 100px;
+  left: 500px;
+}
+
+.btn-section > img {
+  cursor: pointer;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
