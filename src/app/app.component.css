@@ -1,6 +1,7 @@
 * {
   font-family: fantasy;
 }
+
 .diarySpend {
   background: #5BB78D;
   color: white;
@@ -49,9 +50,6 @@
 .btn-section {
   margin-top: 100px;
   text-align: center;
-  position: absolute;
-  bottom: 100px;
-  left: 500px;
 }
 
 .btn-section > img {
