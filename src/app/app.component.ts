@@ -12,6 +12,8 @@ export class AppComponent {
 
   title = 'gastos-hormiga-pwa';
 
+  showList:boolean = false;
+
   public showModal():void {
     console.log("llega");
     // Get the modal
@@ -33,5 +35,6 @@ export class AppComponent {
 
   public goToList (id:string) {
     console.log("goToList", id);
+    this.showList = true
   }
 }

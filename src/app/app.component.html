@@ -4,7 +4,7 @@
     <h1>$ {{diarySpend.ammount}}</h1>
   </section>
 
-  <section class="week">
+  <section class="week" *ngIf="!showList">
     <div class="slider">
       <div>
         <span class="date">21-06-2022</span>
@@ -45,7 +45,7 @@
   </section>
 
 
-  <section class="btn-section">
+  <section class="btn-section" *ngIf="!showList">
     
     <img id="myBtn" src="../assets/plus-svgrepo-com.svg" alt="" (click)="showModal()">
     
@@ -67,7 +67,7 @@
     </div>
   </div>
 
-  <section>
+  <section *ngIf="showList">
     <h3>Detalle</h3>
     <ul>
       <li>
