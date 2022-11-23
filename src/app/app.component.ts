@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DiarySpend } from './models/diary_spend.model';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  diarySpend:number = 6.599;
+  diarySpend:DiarySpend = {ammount: '6.599', id: '1'}
 
   title = 'gastos-hormiga-pwa';
 
@@ -28,5 +29,9 @@ export class AppComponent {
       }
     }
     
+  }
+
+  public goToList (id:string) {
+    console.log("goToList", id);
   }
 }

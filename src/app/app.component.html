@@ -1,7 +1,7 @@
 <main>
-  <section class="diarySpend">
+  <section class="diarySpend" (click)="goToList(diarySpend.id)">
     <h1>Hoy</h1>
-    <h1>$ {{diarySpend}}</h1>
+    <h1>$ {{diarySpend.ammount}}</h1>
   </section>
 
   <section class="week">
@@ -54,10 +54,27 @@
   
   <div id="myModal" class="modal">
     <div class="modal-content">
-      <span class="close">&times;</span>
-      <p>Some text in the Modal..</p>
-      <input type="text">
-      <input type="number" name="amount" id="amount">
+      <div class="container-amount">
+        <input type="number" name="amount" id="amount" placeholder="Monto">
+      </div>
+      <div class="container-description">
+        <input type="text" placeholder="Descripción">
+      </div>
+      <div class="container-btns">
+        <button class="btn-save">Guardar</button>
+        <button class="btn-cancel">Cancelar</button>
+      </div>
     </div>
   </div>
+
+  <section>
+    <h3>Detalle</h3>
+    <ul>
+      <li>
+        <span>$ 3790</span>
+        <span>Gastos cole</span>
+        <span>i</span>
+      </li>
+    </ul>
+  </section>
 </main>
