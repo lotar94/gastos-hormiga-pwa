@@ -35,6 +35,10 @@ export class AppComponent {
 
   public goToList (id:string) {
     console.log("goToList", id);
-    this.showList = true
+    this.showList = true;
+  }
+
+  public comeBack() {
+    this.showList = false;
   }
 }
