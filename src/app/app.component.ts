@@ -10,6 +10,9 @@ export class AppComponent {
 
   diarySpend:DiarySpend = {ammount: '6.599', id: '1'}
 
+  ammount: any;
+  description: any;
+
   title = 'gastos-hormiga-pwa';
 
   showList:boolean = false;
@@ -40,5 +43,14 @@ export class AppComponent {
 
   public comeBack() {
     this.showList = false;
+  }
+
+  public saveSpending(ammount:number, description:string): void {
+    console.log("El valor ingresado es => ", ammount);
+    console.log("La descripción es => ", description);
+  }
+
+  onSubmit() {
+    console.log
   }
 }

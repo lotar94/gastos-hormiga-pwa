@@ -54,16 +54,18 @@
   
   <div id="myModal" class="modal">
     <div class="modal-content">
-      <div class="container-amount">
-        <input type="number" name="amount" id="amount" placeholder="Monto">
-      </div>
-      <div class="container-description">
-        <input type="text" placeholder="Descripción">
-      </div>
-      <div class="container-btns">
-        <button class="btn-save">Guardar</button>
-        <button class="btn-cancel">Cancelar</button>
-      </div>
+      <!-- <form action="onSubmit()"> -->
+        <div class="container-amount">
+          <input type="number" name="amount" id="amount" placeholder="Monto" [(ngModel)]="ammount">
+        </div>
+        <div class="container-description">
+          <input type="text" placeholder="Descripción" [(ngModel)]="description">
+        </div>
+        <div class="container-btns">
+          <button class="btn-save" (click)="saveSpending(ammount, description)">Guardar</button>
+          <button class="btn-cancel">Cancelar</button>
+        </div>
+      <!-- </form> -->
     </div>
   </div>
 
@@ -77,6 +79,6 @@
       </li>
     </ul>
 
-    <button (click)="comeBack()">Volver</button>
+    <button (click)="comeBack()" class="btn-comeback">Volver</button>
   </section>
 </main>

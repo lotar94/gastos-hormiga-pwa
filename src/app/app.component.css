@@ -117,3 +117,16 @@
   margin-left: 6px;
   background-color: #486573;
 }
+
+
+btn-comeback {
+  position: relative;
+  top: 502px;
+  left: 155px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  width: 110px;
+}
+
