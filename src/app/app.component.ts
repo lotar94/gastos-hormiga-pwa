@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DiarySpend } from './models/diary_spend.model';
+import { Observable } from 'rxjs';
+import { Firestore, addDoc, collectionData, collectionGroup, collectionSnapshots } from '@angular/fire/firestore';
+import { collection } from '@firebase/firestore';
+
+
 
 @Component({
   selector: 'app-root',
@@ -7,6 +12,11 @@ import { DiarySpend } from './models/diary_spend.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  
+  // firestore: Firestore = inject(Firestore);
+  constructor(readonly firestore: Firestore  ) { }
+
+
 
   diarySpend:DiarySpend = {ammount: '6.599', id: '1'}
 
@@ -48,9 +58,20 @@ export class AppComponent {
   public saveSpending(ammount:number, description:string): void {
     console.log("El valor ingresado es => ", ammount);
     console.log("La descripción es => ", description);
+    
+    const itemCollection = collection(this.firestore,"test");
+    addDoc(itemCollection, {ammount, description})
+    .then(res => {
+      console.log('Documento agregado con ID: ', res.id);
+    })
+    .catch(err => {
+      console.error('Error al agregar documento: ', err);
+    });
+  
+    //TODO crear conexion con la db firebase
+    
+    // console.log(collection(this.firestore, "test"));
   }
+  // Get a list of cities from your database
 
-  onSubmit() {
-    console.log
-  }
 }
