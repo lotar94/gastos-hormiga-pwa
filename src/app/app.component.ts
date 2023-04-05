@@ -67,7 +67,7 @@ export class AppComponent {
     .catch(err => {
       console.error('Error al agregar documento: ', err);
     });
-  
+    this.showModal();
     //TODO crear conexion con la db firebase
     
     // console.log(collection(this.firestore, "test"));
