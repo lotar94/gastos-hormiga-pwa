@@ -1,7 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { DiarySpend } from './models/diary_spend.model';
-import { Observable } from 'rxjs';
-import { Firestore, addDoc, collectionData, collectionGroup, collectionSnapshots } from '@angular/fire/firestore';
+import { Firestore, addDoc } from '@angular/fire/firestore';
 import { collection } from '@firebase/firestore';
 
 
