@@ -8,6 +8,8 @@
 .app-container {
   min-height: 320px;
   overflow: hidden;
+  background: linear-gradient(#9DDCC6,#377777);
+  height: 100vh;
 }
 
 .btn-delete-user {

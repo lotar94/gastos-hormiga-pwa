@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Firestore, addDoc } from '@angular/fire/firestore';
-import { collection } from '@firebase/firestore';
+import { Firestore, Query, addDoc, collection, collectionData, queryEqual } from '@angular/fire/firestore';
+import { Observable, map } from 'rxjs';
 import { DiarySpend } from 'src/app/models/diary_spend.model';
 
 @Component({
@@ -9,18 +8,35 @@ import { DiarySpend } from 'src/app/models/diary_spend.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
-  
-  // firestore: Firestore = inject(Firestore);
+  // items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
+  // size$: BehaviorSubject<string|null>;
+
   constructor(readonly firestore: Firestore  ) { }
 
+  ngOnInit(): void {
+    this.getSpending();
+  }
 
+  async getSpending() {
+    
+    const itemCollection = collection(this.firestore, 'test');
+    
+    collectionData(itemCollection)
+
+    // queryEqual(Query(itemCollection), Query())
+
+
+
+    
+
+  }
 
   diarySpend:DiarySpend = {ammount: '6.599', id: '1'}
 
-  ammount: any;
-  description: any;
+  ammount = '';
+  description = '';
 
   title = 'gastos-hormiga-pwa';
 
@@ -45,6 +61,14 @@ export class HomeComponent {
     
   }
 
+  public hideModal(){
+    let modal = document.getElementById("myModal");
+
+    if (modal != null) {
+      modal.style.display = "none";  
+    }
+  }
+
   public goToList (id:string) {
     console.log("goToList", id);
     this.showList = true;
@@ -54,22 +78,39 @@ export class HomeComponent {
     this.showList = false;
   }
 
-  public saveSpending(ammount:number, description:string): void {
-    console.log("El valor ingresado es => ", ammount);
-    console.log("La descripción es => ", description);
-    
-    const itemCollection = collection(this.firestore,"test");
-    addDoc(itemCollection, {ammount, description})
-    .then(res => {
-      console.log('Documento agregado con ID: ', res.id);
-    })
-    .catch(err => {
-      console.error('Error al agregar documento: ', err);
-    });
-    this.showModal();
-    //TODO crear conexion con la db firebase
-    
-    // console.log(collection(this.firestore, "test"));
+  public saveSpending(ammount:string, description:string): void {
+    if (this.ammount !== '' && this.description !== '') {
+      console.log("El valor ingresado es => ", ammount);
+      console.log("La descripción es => ", description);
+      const date = this.formatDate(new Date())
+      console.log("date ========>", date);
+      
+      const itemCollection = collection(this.firestore,"test");
+      addDoc(itemCollection, {ammount, description, date})
+      .then(res => {
+        console.log('Documento agregado con ID: ', res.id);
+        this.ammount = ''
+        this.description = ''
+      })
+      .catch(err => {
+        console.error('Error al agregar documento: ', err);
+      });
+      this.hideModal();
+    } else {
+      console.log("FALTA INGRESAR LOS VALORES");
+      
+    }
   }
-  // Get a list of cities from your database
+
+  public padTo2Digits(num: number) {
+    return num.toString().padStart(2, '0');
+  }
+  
+  public formatDate(date: Date) {
+    return [
+      this.padTo2Digits(date.getDate()),
+      this.padTo2Digits(date.getMonth() + 1),
+      date.getFullYear(),
+    ].join('/');
+  }
 }
