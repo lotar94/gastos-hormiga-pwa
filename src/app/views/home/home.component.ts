@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Firestore, Query, addDoc, collection, collectionData, queryEqual } from '@angular/fire/firestore';
-import { Observable, map } from 'rxjs';
+import { Firestore, Timestamp, addDoc, collection, collectionData, query, where } from '@angular/fire/firestore';
 import { DiarySpend } from 'src/app/models/diary_spend.model';
 
 @Component({
@@ -10,30 +9,10 @@ import { DiarySpend } from 'src/app/models/diary_spend.model';
 })
 export class HomeComponent implements OnInit {
 
-  // items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
-  // size$: BehaviorSubject<string|null>;
 
-  constructor(readonly firestore: Firestore  ) { }
-
-  ngOnInit(): void {
-    this.getSpending();
-  }
-
-  async getSpending() {
-    
-    const itemCollection = collection(this.firestore, 'test');
-    
-    collectionData(itemCollection)
-
-    // queryEqual(Query(itemCollection), Query())
-
-
-
-    
-
-  }
-
-  diarySpend:DiarySpend = {ammount: '6.599', id: '1'}
+  currentDayIndex: number = 0;
+  daysOfWeek: { dateFormatted: string; dayOfWeek: string; amount: number }[] = [];
+  diarySpend:DiarySpend = {ammount: '', id: ''}
 
   ammount = '';
   description = '';
@@ -42,8 +21,53 @@ export class HomeComponent implements OnInit {
 
   showList:boolean = false;
 
+  constructor(readonly firestore: Firestore  ) { }
+
+  ngOnInit() {
+    this.getExpensesForCurrentDay();
+    this.getDaysOfWeek();
+  }
+
+  async getExpensesForCurrentDay() {
+    this.diarySpend.ammount = await this.getExpensesForADay(this.formatDate(new Date())).then(result => result);
+  }
+
+  async getExpensesForADay(date:string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      // Reference the 'test' collection in Firestore
+      const itemCollection = collection(this.firestore, 'test');
+    
+      // Use a query to filter spending entries for the current day
+      const querySnapshot = collectionData(
+        query(itemCollection, where('date', '==', date))
+      );
+    
+      // The 'querySnapshot' now contains the spending entries for the current day
+      // You can process this data as needed.
+      const total = querySnapshot.subscribe(res => {
+        // Sumar los valores de 'ammount'
+        const totalMonto: number = res.reduce((total, entrada) => {
+          const montoComoNumero = this.convertirANumero(entrada.ammount);
+
+          // Si 'montoComoNumero' es un número válido, añadirlo al total; de lo contrario, ignorarlo
+          if (!isNaN(montoComoNumero)) {
+            return total + montoComoNumero;
+          } else {
+            return total;
+          }
+        }, 0);
+        resolve(totalMonto.toString())
+      })
+    })
+  }
+
+  
+  convertirANumero(valor: string): number {
+    const formattedValue = valor.replace('.', '');
+    return parseFloat(formattedValue);
+  }
+
   public showModal():void {
-    console.log("llega");
     // Get the modal
     let modal = document.getElementById("myModal");
 
@@ -69,8 +93,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  public goToList (id:string) {
-    console.log("goToList", id);
+  public goToList (id:string) {  
     this.showList = true;
   }
 
@@ -80,24 +103,21 @@ export class HomeComponent implements OnInit {
 
   public saveSpending(ammount:string, description:string): void {
     if (this.ammount !== '' && this.description !== '') {
-      console.log("El valor ingresado es => ", ammount);
-      console.log("La descripción es => ", description);
       const date = this.formatDate(new Date())
-      console.log("date ========>", date);
-      
       const itemCollection = collection(this.firestore,"test");
       addDoc(itemCollection, {ammount, description, date})
       .then(res => {
-        console.log('Documento agregado con ID: ', res.id);
         this.ammount = ''
         this.description = ''
+        this.getExpensesForCurrentDay();
+        this.getDaysOfWeek();
       })
       .catch(err => {
         console.error('Error al agregar documento: ', err);
       });
       this.hideModal();
     } else {
-      console.log("FALTA INGRESAR LOS VALORES");
+      console.error("FALTA INGRESAR LOS VALORES");
       
     }
   }
@@ -113,4 +133,36 @@ export class HomeComponent implements OnInit {
       date.getFullYear(),
     ].join('/');
   }
+
+  
+
+
+
+
+
+
+
+
+  private async getDaysOfWeek(): Promise<void> {
+    this.daysOfWeek = [];
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+
+    for (let i = 1; i < 8; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() - dayOfWeek + i);
+      const formattedDate = this.formatDate(date);
+      const dayName = this.getDayName(date.getDay());
+      // const randomAmount = Math.floor(Math.random() * 10000); // Valor aleatorio entre 0 y 9999
+      const randomAmount =  await this.getExpensesForADay(formattedDate).then(result => result);
+      this.daysOfWeek.push({ dateFormatted: formattedDate, dayOfWeek: dayName, amount: Number(randomAmount) });
+    }
+  }
+
+  private getDayName(dayIndex: number): string {
+    const daysOfWeek = ['', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+    return daysOfWeek[dayIndex];
+  }
+
+
 }

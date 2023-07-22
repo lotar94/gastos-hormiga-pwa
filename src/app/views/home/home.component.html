@@ -6,43 +6,14 @@
   
     <section class="week" *ngIf="!showList">
       <div class="slider">
-        <div>
-          <span class="date">21-06-2022</span>
-          <span class="day">Lunes</span>
-          <span class="amount">$ 4.890</span>
-        </div>
-        <div>
-          <span class="date">21-06-2022</span>
-          <span class="day">Martes</span>
-          <span class="amount">$ 4.890</span>
-        </div>
-        <div>
-          <span class="date">21-06-2022</span>
-          <span class="day">Muercoles</span>
-          <span class="amount">$ 4.890</span>
-        </div>
-        <div>
-          <span class="date">21-06-2022</span>
-          <span class="day">Jueves</span>
-          <span class="amount">$ 4.890</span>
-        </div>
-        <div>
-          <span class="date">21-06-2022</span>
-          <span class="day">Viernes</span>
-          <span class="amount">$ 4.890</span>
-        </div>
-        <div>
-          <span class="date">21-06-2022</span>
-          <span class="day">Sabado</span>
-          <span class="amount">$ 4.890</span>
-        </div>
-        <div>
-          <span class="date">21-06-2022</span>
-          <span class="day">Domingo</span>
-          <span class="amount">$ 4.890</span>
+        <div *ngFor="let day of daysOfWeek">
+          <span class="date">{{ day.dateFormatted }}</span>
+          <span class="day">{{ day.dayOfWeek }}</span>
+          <span class="amount">$ {{ day.amount }}</span>
         </div>
       </div>
     </section>
+    
   
   
     <section class="btn-section" *ngIf="!showList">
