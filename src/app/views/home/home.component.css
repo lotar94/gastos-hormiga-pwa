@@ -129,15 +129,56 @@
   }
   
   
-  btn-comeback {
+  .btn-comeback {
     position: relative;
-    top: 502px;
-    left: 155px;
+    top: 50px;
     padding: 10px;
     border: none;
     outline: none;
     border-radius: 15px;
     width: 110px;
   }
+
+  .list-container-comeBack {
+    text-align: center;
+  }
+
+  .list-principal-h1-1 {
+    text-align: center;
+    color: white;
+    font-size: 50px;
+    margin-top: 30px;
+  }
+
+  .list-principal-h1-2 {
+    text-align: center;
+    color: white;
+    font-size: 50px;
+  }
+
+  .list-second {
+    text-align: center;
+    color: white;
+    margin-top: 25px;
+    font-size: 35px;
+  }
+
+  .list-span-item {
+    color: white;
+    font-size: 25px;
+    margin-right: 10px;
+  }
+
+  .btn-comeback-from-list {
+    border: none;
+    padding: 7px;
+    border-radius: 7px;
+  }
+
+  .list-container-spend {
+    text-align: center;
+  }
+
+
   
   

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Firestore, Timestamp, addDoc, collection, collectionData, query, where } from '@angular/fire/firestore';
+import { DocumentData, Firestore, Timestamp, addDoc, collection, collectionData, query, where } from '@angular/fire/firestore';
 import { DiarySpend } from 'src/app/models/diary_spend.model';
 
 @Component({
@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit {
   currentDayIndex: number = 0;
   daysOfWeek: { dateFormatted: string; dayOfWeek: string; amount: number }[] = [];
   diarySpend:DiarySpend = {ammount: '', id: ''}
+
+  listDiarySpend:any = []
 
   ammount = '';
   description = '';
@@ -46,6 +48,11 @@ export class HomeComponent implements OnInit {
       // You can process this data as needed.
       const total = querySnapshot.subscribe(res => {
         // Sumar los valores de 'ammount'
+        console.log("RES ======> ",res);
+        if (date === this.formatDate(new Date())) {
+          this.listDiarySpend = res;
+        }
+        
         const totalMonto: number = res.reduce((total, entrada) => {
           const montoComoNumero = this.convertirANumero(entrada.ammount);
 
@@ -148,19 +155,18 @@ export class HomeComponent implements OnInit {
     const today = new Date();
     const dayOfWeek = today.getDay();
 
-    for (let i = 1; i < 8; i++) {
+    for (let i = 0; i < 7; i++) {
       const date = new Date(today);
-      date.setDate(today.getDate() - dayOfWeek + i);
+      date.setDate(today.getDate() - dayOfWeek + i+1);
       const formattedDate = this.formatDate(date);
-      const dayName = this.getDayName(date.getDay());
-      // const randomAmount = Math.floor(Math.random() * 10000); // Valor aleatorio entre 0 y 9999
+      const dayName = this.getDayName(i);
       const randomAmount =  await this.getExpensesForADay(formattedDate).then(result => result);
       this.daysOfWeek.push({ dateFormatted: formattedDate, dayOfWeek: dayName, amount: Number(randomAmount) });
     }
   }
 
   private getDayName(dayIndex: number): string {
-    const daysOfWeek = ['', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+    const daysOfWeek = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
     return daysOfWeek[dayIndex];
   }
 

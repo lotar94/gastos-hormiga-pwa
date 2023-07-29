@@ -1,5 +1,5 @@
 <main>
-    <section class="diarySpend" (click)="goToList(diarySpend.id)">
+    <section *ngIf="!showList" class="diarySpend" (click)="goToList(diarySpend.id)">
       <h1>Hoy</h1>
       <h1>$ {{diarySpend.ammount}}</h1>
     </section>
@@ -41,15 +41,18 @@
     </div>
   
     <section *ngIf="showList">
-      <h3>Detalle</h3>
-      <ul>
-        <li>
-          <span>$ 3790</span>
-          <span>Gastos cole</span>
-          <span>i</span>
-        </li>
-      </ul>
+      <h1 class="list-principal-h1-1">Hoy</h1>
+      <h1 class="list-principal-h1-2">$ {{diarySpend.ammount}}</h1>
+      <h3 class="list-second">Detalle</h3>
+      <div class="list-container-spend" *ngFor="let diarySpend of listDiarySpend">
+        <span class="list-span-item">{{diarySpend.ammount}}</span>
+        <span class="list-span-item">{{diarySpend.description}}</span>
+        <button (click)="comeBack()" class="btn-comeback-from-list">Eliminar</button>
+      </div>
   
-      <button (click)="comeBack()" class="btn-comeback">Volver</button>
+      <div class="list-container-comeBack">
+
+        <button (click)="comeBack()" class="btn-comeback">Volver</button>
+      </div>
     </section>
   </main>
