@@ -6,8 +6,7 @@ export const environment = {
     storageBucket: import.meta.env.NG_APP_STORAGEBUCKET,
     apiKey: import.meta.env.NG_APP_APIKEY,
     authDomain: import.meta.env.NG_APP_AUTHDOMAIN,
-    messagingSenderId: import.meta.env.NG_APP_MESSAGINGSENDERID,
-    measurementId: import.meta.env.NG_APP_MEASUREMENTID,
+    messagingSenderId: import.meta.env.NG_APP_MESSAGINGSENDERID
   },
   production: true
 };

@@ -3,7 +3,6 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  apiUrl: '',
   firebase: {
     app: import.meta.env.NG_APP_ENV,
     projectId: import.meta.env.NG_APP_PROJECTID,
@@ -12,7 +11,6 @@ export const environment = {
     apiKey: import.meta.env.NG_APP_APIKEY,
     authDomain: import.meta.env.NG_APP_AUTHDOMAIN,
     messagingSenderId: import.meta.env.NG_APP_MESSAGINGSENDERID,
-    measurementId: import.meta.env.NG_APP_MEASUREMENTID,
   },
   production: false
 };

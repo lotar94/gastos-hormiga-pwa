@@ -18,7 +18,6 @@ interface ImportMetaEnv {
   readonly NG_APP_APIKEY:string;
   readonly NG_APP_AUTHDOMAIN:string;
   readonly NG_APP_MESSAGINGSENDERID:string;
-  readonly NG_APP_MEASUREMENTID:string;
 
 }
 

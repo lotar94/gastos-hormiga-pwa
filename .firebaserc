@@ -1,5 +1,22 @@
 {
   "projects": {
     "default": "gastos-hormiga-pwa"
-  }
+  },
+  "targets": {
+    "gastos-hormiga-1f317": {
+      "hosting": {
+        "gastos-hormiga-pwa": [
+          "gastos-hormiga-1f317"
+        ]
+      }
+    },
+    "gastos-hormiga-pwa": {
+      "hosting": {
+        "gastos-hormiga-pwa": [
+          "deploy"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

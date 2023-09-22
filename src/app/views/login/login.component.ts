@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService } from 'src/app/services/account.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,12 +15,13 @@ export class LoginComponent implements OnInit {
   form!: FormGroup;
   loading = false;
   submitted = false;
+  user$!: Observable<any>;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private accountService: AccountService,
+    private authSvc: AccountService,
     private alertService: AlertService
   ) { }
 
@@ -28,36 +30,26 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+
+    this.user$ = this.authSvc.userState$;
+    this.user$.subscribe(res => {
+      console.log(res
+        );
+      this.router.navigate(['home'])
+    })
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
 
-  onSubmit() {
-    this.router.navigate(['home']);
-  //   this.submitted = true;
+  
 
-  //   // reset alerts on submit
-  //   this.alertService.clear();
+  register() {
+    console.log("REGISTER WITH GOOGLE");
+    this.authSvc.signInGoogle();
+  }
 
-  //   // stop here if form is invalid
-  //   if (this.form.invalid) {
-  //     return;
-  //   }
-
-  //   this.loading = true;
-  //   this.accountService.login(this.f['username'].value, this.f['password'].value)
-  //     .pipe(first())
-  //     .subscribe({
-  //       next: () => {
-  //         // get return url from query parameters or default to home page
-  //         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-  //         this.router.navigateByUrl(returnUrl);
-  //       },
-  //       error: error => {
-  //         this.alertService.error(error);
-  //         this.loading = false;
-  //       }
-  //     });
+  signInGoogle() {
+    //TODO
   }
 }

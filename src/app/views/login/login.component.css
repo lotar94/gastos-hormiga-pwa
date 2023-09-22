@@ -1,0 +1,13 @@
+
+.icon_google {
+    width: 45px;
+    height: 45px;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: none;
+}
